@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+{% extends 'open/base.html' %}
+{% block body_block %}
+
+{% for sl in  story_list %}
+    <a href="{% url 'open:story_detail' pk=sl.pk %}"><h2 class="bodyfont mylink wrapper">{{ sl.title }}</h2></a>
+    <p class="body_font">Published on: {{sl.publish_date|date:'d-m-y'}}</p>
+    <a href="{% url 'open:story_detail' pk=sl.pk %}"><p class="body_font">Reviews: {{ sl.reviews.count }}</p></a>
+{% endfor %}
+
+{% endblock %}

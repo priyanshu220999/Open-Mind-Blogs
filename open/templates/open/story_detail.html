@@ -1,0 +1,46 @@
+{% extends 'open/base.html' %}
+{% block body_block %}
+<h1 class="wrapper"><b>{{story.title}}</b></h1>
+{% if story.publish_date %}
+    <div class="">
+        <p>{{ story.publish_date }}</p><br>
+        <p>Published by: {{ story.author }}</p>
+    </div>
+{% else %}
+    <a class="btn btn-default" href="{% url 'open:publish' pk=story.pk %}">Publish</a>
+{% endif %}
+
+<h3 class="body_font large_brand">{{ story.text|safe|linebreaksbr}}</h3>
+
+{% if user.is_authenticated %}
+<a href="{% url 'open:story_update' pk=story.pk %}" class="btn btn-primary">
+    <span class="glyphicon glyphicon-pencil"></span>
+</a>
+<a href="{% url 'open:story_delete' pk=story.pk %}" class="btn btn-primary">
+    <span class="glyphicon glyphicon-remove"></span>
+</a>
+{% endif %}
+<hr>
+<a class="btn btn-primary btn-comment" href="{% url 'open:add_review_to_story' pk=story.pk %}">Add Comment</a>
+
+<div class="container">
+    {% for rw in story.reviews.all %}
+    <br>
+        {% if user.is_authenticated or rw.approved_review %}
+            {{rw.creation_date}}
+            {% if not rw.approved_review %}
+                <a href="{% url 'open:review_deletion' pk=rw.pk %}" class="btn btn-default">
+                <span class="glyphicon glyphicon-remove"></span>
+                </a>
+                <a href="{% url 'open:review_approval' pk=rw.pk %}" class="btn btn-primary">
+                <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            {% endif %}
+            <p>{{rw.text|safe|linebreaks}}</p>
+            <p>Posted by: {{ rw.author }}</p>
+        {% endif %}
+        {% empty %}
+        <p>No Comments!</p>
+    {% endfor %}
+</div>
+{% endblock %}

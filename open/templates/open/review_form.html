@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% extends 'open/base.html' %}
+{% block body_block %}
+
+<div class="body_font">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Add Review">
+    </form>
+</div>
+
+{% endblock %}

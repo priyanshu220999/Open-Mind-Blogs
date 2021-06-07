@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% extends 'open/base.html' %}
+{% block body_block %}
+
+<div class="wrapper">
+    <h2>Write your story here </h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Add">
+        <a class="btn btn-primary" href="{% url 'open:story_list' %}">Cancel</a>
+    </form>
+    <script>var editor = new MediumEditor('.editable');</script>
+</div>
+
+
+
+{% endblock %}

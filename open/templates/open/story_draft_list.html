@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% extends 'open/base.html' %}
+{% block body_block %}
+<div class="wrapper body_font jumbotron">
+    {% for st in storys %}
+    <a href="{% url 'open:story_detail' pk=st.pk %}" class="body_font"><b>{{ st.title }}</b></a>
+        <p>Created on: {{ st.creation_date|date:'d-m-y' }}</p>
+        <p>Created by {{ st.author }}</p>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% extends 'open/base.html' %}
+{% block body_block %}
+
+<div class="jumbotron body_font">
+    <h2> Delete {{ object }}?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input class="btn btn-danger" type="submit" value="Confirm">
+    </form>
+</div>
+
+{% endblock %}
